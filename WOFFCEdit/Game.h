@@ -14,6 +14,8 @@
 #include <vector>
 
 
+class CameraController;
+
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
 class Game : public DX::IDeviceNotify
@@ -70,15 +72,11 @@ private:
 	InputCommands						m_InputCommands;
 
 	//functionality
-	float								m_movespeed;
+	int m_height;
+	int m_width;
 
 	//camera
-	DirectX::SimpleMath::Vector3		m_camPosition;
-	DirectX::SimpleMath::Vector3		m_camOrientation;
-	DirectX::SimpleMath::Vector3		m_camLookAt;
-	DirectX::SimpleMath::Vector3		m_camLookDirection;
-	DirectX::SimpleMath::Vector3		m_camRight;
-	float m_camRotRate;
+	std::unique_ptr<CameraController> camera;
 
 	//control variables
 	bool m_grid;							//grid rendering on / off
@@ -123,10 +121,7 @@ private:
 #endif
 
     DirectX::SimpleMath::Matrix                                             m_world;
-    DirectX::SimpleMath::Matrix                                             m_view;
     DirectX::SimpleMath::Matrix                                             m_projection;
-
-
 };
 
 std::wstring StringToWCHART(std::string s);
