@@ -73,9 +73,12 @@ private:
 	DisplayChunk						m_displayChunk;
 	InputCommands						m_InputCommands;
 
-	//functionality
-	int m_height;
-	int m_width;
+	RECT m_ScreenDimensions;
+
+	// copy pasting
+	DisplayObject* m_selectedObject;
+	DisplayObject* objectToPaste;
+
 
 	//control variables
 	bool m_grid;							//grid rendering on / off
