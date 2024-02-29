@@ -122,7 +122,7 @@ void ToolMain::onActionLoad()
 		newSceneObject.play_in_editor = sqlite3_column_int(pResults, 35);
 		newSceneObject.min_dist = sqlite3_column_double(pResults, 36);
 		newSceneObject.max_dist = sqlite3_column_double(pResults, 37);
-		newSceneObject.camera = sqlite3_column_int(pResults, 38);
+		newSceneObject.m_camera = sqlite3_column_int(pResults, 38);
 		newSceneObject.path_node = sqlite3_column_int(pResults, 39);
 		newSceneObject.path_node_start = sqlite3_column_int(pResults, 40);
 		newSceneObject.path_node_end = sqlite3_column_int(pResults, 41);
@@ -244,7 +244,7 @@ void ToolMain::onActionSave()
 			<< m_sceneGraph.at(i).play_in_editor << ","
 			<< m_sceneGraph.at(i).min_dist << ","
 			<< m_sceneGraph.at(i).max_dist << ","
-			<< m_sceneGraph.at(i).camera << ","
+			<< m_sceneGraph.at(i).m_camera << ","
 			<< m_sceneGraph.at(i).path_node << ","
 			<< m_sceneGraph.at(i).path_node_start << ","
 			<< m_sceneGraph.at(i).path_node_end << ","
@@ -310,60 +310,34 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.mouse_Y = GET_Y_LPARAM(msg->lParam);
 		break;
 
-	case WM_LBUTTONDOWN:	//mouse button down,  you will probably need to check when its up too
-		//set some flag for the mouse button in inputcommands
-		m_toolInputCommands.mouseLB = true;
+	case WM_LBUTTONDOWN:
+		//mouse left pressed.	
+		m_toolInputCommands.mouse_LB_Down = true;
 		break;
 	case WM_LBUTTONUP:
-		m_toolInputCommands.mouseLB = false;
+		//mouse left pressed.	
+		m_toolInputCommands.mouse_LB_Down = false;
 		break;
-
-
+	case WM_RBUTTONDOWN:
+		//mouse right pressed.	
+		m_toolInputCommands.allowCamera_movement = true;
+		break;
+	case WM_RBUTTONUP:
+		//mouse right pressed.	
+		m_toolInputCommands.allowCamera_movement = false;
+		break;
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
-	if (m_keyArray['W'])
-	{
-		m_toolInputCommands.forward = true;
-	}
-	else m_toolInputCommands.forward = false;
-	
-	if (m_keyArray['S'])
-	{
-		m_toolInputCommands.back = true;
-	}
-	else m_toolInputCommands.back = false;
-	if (m_keyArray['A'])
-	{
-		m_toolInputCommands.left = true;
-	}
-	else m_toolInputCommands.left = false;
 
-	if (m_keyArray['D'])
-	{
-		m_toolInputCommands.right = true;
-	}
-	else m_toolInputCommands.right = false;
-	//rotation
-	if (m_keyArray['E'])
-	{
-		m_toolInputCommands.rotRight = true;
-	}
-	else m_toolInputCommands.rotRight = false;
-	if (m_keyArray['Q'])
-	{
-		m_toolInputCommands.rotLeft = true;
-	}
-	else m_toolInputCommands.rotLeft = false;
-	//WASD
-	if (m_keyArray['I'])
-	{
-		m_toolInputCommands.rotUp = true;
-	}
-	else m_toolInputCommands.rotUp = false;
-	if (m_keyArray['K'])
-	{
-		m_toolInputCommands.rotDown = true;
-	}
-	else m_toolInputCommands.rotDown = false;
+	m_toolInputCommands.forward = m_keyArray['W'];
+	m_toolInputCommands.back = m_keyArray['S'];
+	m_toolInputCommands.left = m_keyArray['A'];
+	m_toolInputCommands.right = m_keyArray['D'];
+	m_toolInputCommands.rotRight = m_keyArray['E'];
+	m_toolInputCommands.rotLeft = m_keyArray['Q'];
+
+	m_toolInputCommands.down = m_keyArray['Q'];
+	m_toolInputCommands.up = m_keyArray['E'];
+
 }

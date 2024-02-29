@@ -6,17 +6,13 @@ struct InputCommands
 	bool back;
 	bool right;
 	bool left;
+	bool up;
+	bool down;
 	bool rotRight;
 	bool rotLeft;
-	bool rotUp;
-	bool rotDown;
-
-	//
-	float mouse_X;
-	float mouse_Y;
-	long mouseDX;
-	long mouseDY;
-	bool mouseLB;
-	bool mouseRB;
-	bool mouseSW;
+	int mouse_X;
+	int mouse_Y;
+	bool mouse_LB_Down;
+	bool mouse_RB_Up;
+	bool allowCamera_movement;
 };

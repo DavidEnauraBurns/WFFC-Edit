@@ -1,40 +1,45 @@
 #pragma once
+#include "pch.h" 
+#include "InputCommands.h"
 
-#include "DisplayChunk.h"
-
-class InputCommands; 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 class CameraController
 {
 public:
 	CameraController();
+	CameraController(Vector3 position, Vector3 lookAt, int width, int height);
+
+	void Update(const float dt);
+	void HandleInput(const InputCommands& input, const float dt);
+
+private:
+	const int		m_width;
+	const int		m_height;
+
+	const float		m_rotRate;
+	const float		m_rotSensitivity;
+	const float		m_moveSpeed;
+
+	Vector2			m_prevMousePos;
+
+	Vector3			m_position;
+	Vector3			m_orientation;
+	Vector3			m_lookAt;
+	Vector3			m_lookDirection;
+	Vector3			m_right;
+	Vector3			m_up;
+
+	Matrix			m_view;
+	Matrix			m_projection;
 
 public:
-	// Functionality
-	float m_movespeed;
-	float m_camRotRate;
+	Vector3 GetPosition()	const { return m_position; }
+	Vector3 GetLookAt()		const { return m_lookAt; }
+	Matrix	GetView()		const { return m_view; }
+	Matrix	GetProjection()	const { return m_projection; }
 
-	DirectX::SimpleMath::Vector2 currentMousePos, previousMousePos;
-
-	// Camera
-	DirectX::SimpleMath::Vector3 m_camPosition;
-	DirectX::SimpleMath::Vector3 m_camOrientation;
-	DirectX::SimpleMath::Vector3 m_camLookAt;
-	DirectX::SimpleMath::Vector3 m_camLookDirection;
-	DirectX::SimpleMath::Vector3 m_camRight;
-
-	DirectX::SimpleMath::Matrix m_view;
-
-public:
-	void Update(InputCommands* input_commands);
-	void HandleMouseInput(InputCommands* input_commands);
-
-	void CreateLookAt()
-	{
-		DirectX::SimpleMath::Matrix::CreateLookAt(m_camPosition, m_camLookAt, DirectX::SimpleMath::Vector3::UnitY);
-	}
-
-	DirectX::SimpleMath::Matrix const getView() { return m_view; };
-	DirectX::SimpleMath::Vector3 const getPos() { return m_camPosition; };
+	void SetProjection(const Matrix& proj) { m_projection = proj; };
 };
 

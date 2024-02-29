@@ -23,9 +23,6 @@ Game::Game()
 	//initial Settings
 	//modes
 	m_grid = false;
-
-	//functional
-    camera = std::make_unique<CameraController>();
 }
 
 Game::~Game()
@@ -42,6 +39,9 @@ Game::~Game()
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {
+
+    m_camera = std::make_unique<CameraController>(Vector3(0, 3.7, -3.75), Vector3(0, 0, 0), width, height);
+
     m_gamePad = std::make_unique<GamePad>();
 
     m_keyboard = std::make_unique<Keyboard>();
@@ -116,13 +116,13 @@ void Game::Tick(InputCommands *Input)
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
-	camera->Update(&m_InputCommands);
-    camera->HandleMouseInput(&m_InputCommands);
-    camera->CreateLookAt();
+    float time = timer.GetElapsedSeconds();
+    m_camera->HandleInput(m_InputCommands, time);
+    m_camera->Update(time);
 
-	m_batchEffect->SetView(camera->getView());
+	m_batchEffect->SetView(m_camera->GetView());
 	m_batchEffect->SetWorld(Matrix::Identity);
-	m_displayChunk.m_terrainEffect->SetView(camera->getView());
+	m_displayChunk.m_terrainEffect->SetView(m_camera->GetView());
 	m_displayChunk.m_terrainEffect->SetWorld(Matrix::Identity);
 
 #ifdef DXTK_AUDIO
@@ -179,7 +179,7 @@ void Game::Render()
 	//CAMERA POSITION ON HUD
 	m_sprites->Begin();
 	WCHAR   Buffer[256];
-	std::wstring var = L"Cam X: " + std::to_wstring(camera->getPos().x) + L"Cam Z: " + std::to_wstring(camera->getPos().z);
+	std::wstring var = L"Cam X: " + std::to_wstring(m_camera->GetPosition().x) + L"Cam Z: " + std::to_wstring(m_camera->GetPosition().z);
 	m_font->DrawString(m_sprites.get(), var.c_str() , XMFLOAT2(100, 10), Colors::Yellow);
 	m_sprites->End();
 
@@ -198,7 +198,7 @@ void Game::Render()
 
 		XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
-		m_displayList[i].m_model->Draw(context, *m_states, local, camera->getView(), m_projection, false);	//last variable in draw,  make TRUE for wireframe
+		m_displayList[i].m_model->Draw(context, *m_states, local, m_camera->GetView(), m_projection, false);	//last variable in draw,  make TRUE for wireframe
 
 		m_deviceResources->PIXEndEvent();
 	}

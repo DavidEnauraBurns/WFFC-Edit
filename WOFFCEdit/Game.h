@@ -53,6 +53,8 @@ public:
 	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
 	void ClearDisplayList();
 
+	int MousePicking();
+
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();
 #endif
@@ -75,9 +77,6 @@ private:
 	int m_height;
 	int m_width;
 
-	//camera
-	std::unique_ptr<CameraController> camera;
-
 	//control variables
 	bool m_grid;							//grid rendering on / off
 	// Device resources.
@@ -90,6 +89,7 @@ private:
     std::unique_ptr<DirectX::GamePad>       m_gamePad;
     std::unique_ptr<DirectX::Keyboard>      m_keyboard;
     std::unique_ptr<DirectX::Mouse>         m_mouse;
+	std::unique_ptr<CameraController>		m_camera;
 
     // DirectXTK objects.
     std::unique_ptr<DirectX::CommonStates>                                  m_states;

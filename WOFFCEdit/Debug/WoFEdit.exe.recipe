@@ -2,12 +2,12 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>\\StuHomeEven\HomeDrive6$\1901496\Work\Year 4\CMP405 - Tools\Mechanics004\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe</FullPath>
+      <FullPath>C:\Users\david\Documents\Uni Stuff - CGAD\Year 4\CMP405\WFFC\WOFFCEdit\Debug\WoFEdit.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>\\StuHomeEven\HomeDrive6$\1901496\Work\Year 4\CMP405 - Tools\Mechanics004\WFFC-Edit\WOFFCEdit\database\data\Scene1.fbx</FullPath>
+      <FullPath>C:\Users\david\Documents\Uni Stuff - CGAD\Year 4\CMP405\WFFC\WOFFCEdit\database\data\Scene1.fbx</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
