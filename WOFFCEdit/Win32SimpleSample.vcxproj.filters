@@ -60,7 +60,7 @@
       <Filter>MFC</Filter>
     </ClCompile>
     <ClCompile Include="CameraController.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,8 +111,20 @@
     <ClInclude Include="SelectDialogue.h">
       <Filter>MFC</Filter>
     </ClInclude>
+    <ClInclude Include="ActionController.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
     <ClInclude Include="CameraController.h">
-      <Filter>Renderer</Filter>
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="PasteAction.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionAction.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

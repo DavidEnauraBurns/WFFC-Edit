@@ -18,6 +18,9 @@ ToolMain::ToolMain()
 	m_toolInputCommands.back		= false;
 	m_toolInputCommands.left		= false;
 	m_toolInputCommands.right		= false;
+	m_toolInputCommands.mouse_Y = 0;
+	m_toolInputCommands.mouse_X = 0;
+	m_toolInputCommands.mouse_LB_Down = false;
 	
 }
 
@@ -279,11 +282,36 @@ void ToolMain::onActionSaveTerrain()
 
 void ToolMain::Tick(MSG *msg)
 {
-	if (m_toolInputCommands.mouse_LB_Down)
+
+	InputCommands tempInputCommands = m_toolInputCommands;
+
+	// MOUSE CONTROLS
+
+	if (m_toolInputCommands.mouse_LB_Down && !m_inputLastFrame.mouse_LB_Down)
 	{
 		m_selectedObject = m_d3dRenderer.MousePicking();
-		m_toolInputCommands.mouse_LB_Down = false;
+		m_d3dRenderer.StartPushPosition();
 	}
+
+	if (m_toolInputCommands.mouse_LB_Down)
+		m_d3dRenderer.MoveObject();
+
+	if (!m_toolInputCommands.mouse_LB_Down && m_inputLastFrame.mouse_LB_Down)
+		m_d3dRenderer.StopPushPosition();
+
+	// KEYBOARD SHORTCUTS
+
+	if (m_toolInputCommands.copy && !m_inputLastFrame.copy)
+		m_d3dRenderer.Copy(m_selectedObject);
+
+	if (m_toolInputCommands.paste && !m_inputLastFrame.paste)
+		m_d3dRenderer.PasteObject();
+
+	if (m_toolInputCommands.undo & !m_inputLastFrame.undo)
+		m_d3dRenderer.Undo();
+
+	if (m_toolInputCommands.redo & !m_inputLastFrame.redo)
+		m_d3dRenderer.Redo();
 
 	//do we have a selection
 	//do we have a mode
@@ -292,6 +320,8 @@ void ToolMain::Tick(MSG *msg)
 		//update Scenegraph
 		//add to scenegraph
 		//resend scenegraph to Direct X renderer
+
+	m_inputLastFrame = tempInputCommands;
 
 	//Renderer Update Call
 	m_d3dRenderer.Tick(&m_toolInputCommands);
@@ -345,5 +375,11 @@ void ToolMain::UpdateInput(MSG * msg)
 
 	m_toolInputCommands.down = m_keyArray['Q'];
 	m_toolInputCommands.up = m_keyArray['E'];
+	m_toolInputCommands.paste = m_keyArray['V'];
+	m_toolInputCommands.copy = m_keyArray['C'];
+	m_toolInputCommands.down = m_keyArray['Q'];
+	m_toolInputCommands.up = m_keyArray['E'];
+	m_toolInputCommands.undo = m_keyArray['Z'];
+	m_toolInputCommands.redo = m_keyArray['Y'];
 
 }

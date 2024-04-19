@@ -15,4 +15,10 @@ struct InputCommands
 	bool mouse_LB_Down;
 	bool mouse_RB_Up;
 	bool allowCamera_movement;
+	bool copy;
+	bool paste;
+	bool undo;
+	bool redo;
+	bool editDown;
+	bool editUp;
 };

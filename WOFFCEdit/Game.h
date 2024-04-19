@@ -13,6 +13,8 @@
 #include "InputCommands.h"
 #include <vector>
 
+#include "ActionController.h"
+
 
 class CameraController;
 
@@ -51,7 +53,15 @@ public:
 	void BuildDisplayList(std::vector<SceneObject> * SceneGraph); //note vector passed by reference 
 	void BuildDisplayChunk(ChunkObject *SceneChunk);
 	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
-	void ClearDisplayList();
+
+	void Copy(int object_id);
+	void Undo();
+	void Redo();
+	void DeleteObject(int object_id);
+	void PasteObject();
+	void StartPushPosition();
+	void StopPushPosition();
+	void MoveObject();
 
 	int MousePicking();
 
@@ -72,13 +82,13 @@ private:
 	std::vector<DisplayObject>			m_displayList;
 	DisplayChunk						m_displayChunk;
 	InputCommands						m_InputCommands;
+	std::unique_ptr<ActionController>	m_actionController;
 
 	RECT m_ScreenDimensions;
 
 	// copy pasting
 	DisplayObject* m_selectedObject;
 	DisplayObject* objectToPaste;
-
 
 	//control variables
 	bool m_grid;							//grid rendering on / off
