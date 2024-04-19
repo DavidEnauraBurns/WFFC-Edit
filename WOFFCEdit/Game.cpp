@@ -459,7 +459,7 @@ int Game::MousePicking()
         }
 }
 
-    //m_selectedObject = selectedID == -1 ? nullptr : &m_displayList[selectedID];
+    m_selectedObject = selectedID == -1 ? nullptr : &m_displayList[selectedID];
 
     //if we got a hit.  return it.  
     return selectedID;
