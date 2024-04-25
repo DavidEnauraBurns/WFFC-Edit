@@ -460,7 +460,7 @@ void Game::PasteObject()
     float distance = directionToObj.Length();
 
     DisplayObject a = *objectToPaste;
-    a.m_position = direction * distance + m_camera->GetPosition();
+    a.m_position = -direction * distance + m_camera->GetPosition();
     m_displayList.push_back(a);
     objectToPaste = nullptr;
 
