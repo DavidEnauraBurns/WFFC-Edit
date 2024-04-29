@@ -1,5 +1,6 @@
 #include "CameraController.h"
-#include "InputCommands.h"
+#include <SimpleMath.h>
+
 
 CameraController::CameraController(Vector3 position, Vector3 lookAt, int width, int height) :
 

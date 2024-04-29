@@ -285,6 +285,13 @@ void ToolMain::Tick(MSG *msg)
 
 	InputCommands tempInputCommands = m_toolInputCommands;
 
+	//TERRAIN
+	if (m_toolInputCommands.editUp || m_toolInputCommands.editDown)
+	{
+		m_d3dRenderer.AdjustTerrain();
+		m_d3dRenderer.RecalculateNormals();
+	}
+
 	// MOUSE CONTROLS
 
 	if (m_toolInputCommands.mouse_LB_Down && !m_inputLastFrame.mouse_LB_Down)

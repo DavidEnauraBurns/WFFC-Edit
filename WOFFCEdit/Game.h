@@ -11,6 +11,7 @@
 #include "DisplayChunk.h"
 #include "ChunkObject.h"
 #include "InputCommands.h"
+#include "CameraController.h"
 #include <vector>
 
 #include "ActionController.h"
@@ -49,20 +50,30 @@ public:
 	void OnResuming();
 	void OnWindowSizeChanged(int width, int height);
 
-	//tool specific
+	// tool specific
 	void BuildDisplayList(std::vector<SceneObject> * SceneGraph); //note vector passed by reference 
 	void BuildDisplayChunk(ChunkObject *SceneChunk);
 	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
 
+	// Copy/Paste/Delete
 	void Copy(int object_id);
+	void PasteObject();
+	void DeleteObject(int object_id);
+
+	// Undo/Redo
 	void Undo();
 	void Redo();
-	void DeleteObject(int object_id);
-	void PasteObject();
+
+	// Moving Objects
 	void StartPushPosition();
 	void StopPushPosition();
 	void MoveObject();
 
+	// Adjusting Terrain
+	void AdjustTerrain();
+	void RecalculateNormals();
+
+	// Selection
 	int MousePicking();
 
 #ifdef DXTK_AUDIO
@@ -134,7 +145,6 @@ private:
 #endif
 
     DirectX::SimpleMath::Matrix                                             m_world;
-    DirectX::SimpleMath::Matrix                                             m_projection;
 };
 
 std::wstring StringToWCHART(std::string s);

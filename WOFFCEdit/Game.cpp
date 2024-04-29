@@ -6,7 +6,6 @@
 #include "Game.h"
 #include "DisplayObject.h"
 #include <string>
-#include "CameraController.h"
 
 #include "PasteAction.h"
 #include "PositionAction.h"
@@ -202,7 +201,7 @@ void Game::Render()
 
 		XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
-		m_displayList[i].m_model->Draw(context, *m_states, local, m_camera->GetView(), m_projection, false);	//last variable in draw,  make TRUE for wireframe
+		m_displayList[i].m_model->Draw(context, *m_states, local, m_camera->GetView(), m_camera->GetProjection(), false);	//last variable in draw,  make TRUE for wireframe
 
 		m_deviceResources->PIXEndEvent();
 	}
@@ -408,7 +407,7 @@ void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 	//which, to be honest, is almost all of it. Its mostly rendering related info so...
 	m_displayChunk.PopulateChunkData(SceneChunk);		//migrate chunk data
 	m_displayChunk.LoadHeightMap(m_deviceResources);
-	m_displayChunk.m_terrainEffect->SetProjection(m_projection);
+	m_displayChunk.m_terrainEffect->SetProjection(m_camera->GetProjection());
 	m_displayChunk.InitialiseBatch();
 }
 
@@ -423,6 +422,47 @@ void Game::Copy(int object_id)
 
     objectToPaste = &m_displayList[object_id];
 }
+
+void Game::PasteObject()
+{
+	if (objectToPaste == nullptr)
+		return;
+
+	const XMVECTOR nearSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 0.0f, 1.0f);
+	const XMVECTOR farSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 1.0f, 1.0f);
+
+	//Unproject the points on the near and far plane
+	const XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right,
+        m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth,
+        m_camera->GetProjection(), m_camera->GetView(), m_world);
+
+	const XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right,
+        m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth,
+        m_camera->GetProjection(), m_camera->GetView(), m_world);
+
+	Vector3 direction = farPoint - nearPoint;
+	direction.Normalize();
+
+	Vector3 directionToObject = objectToPaste->m_position - m_camera->GetPosition();
+	float distance = directionToObject.Length();
+
+	DisplayObject temp_object = *objectToPaste;
+	temp_object.m_position = -direction * distance + m_camera->GetPosition();
+	m_displayList.push_back(temp_object);
+	objectToPaste = nullptr;
+
+	auto* action = new PasteAction<DisplayObject>(temp_object, m_displayList.size() - 1, m_displayList);
+	m_actionController->PushNewAction(action);
+}
+
+void Game::DeleteObject(int object_id)
+{
+	if (object_id < 0)
+		return;
+
+	m_displayList.erase(m_displayList.begin() + 1);
+}
+
 void Game::Undo()
 {
     m_actionController->Undo();
@@ -431,41 +471,6 @@ void Game::Undo()
 void Game::Redo()
 {
     m_actionController->Redo();
-}
-
-void Game::DeleteObject(int object_id)
-{
-    if (object_id < 0)
-        return;
-
-    m_displayList.erase(m_displayList.begin() + 1);
-}
-
-void Game::PasteObject()
-{
-    if (objectToPaste == nullptr)
-        return;
-
-    const XMVECTOR nearSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 0.0f, 1.0f);
-    const XMVECTOR farSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 1.0f, 1.0f);
-
-    //Unproject the points on the near and far plane
-    const XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_camera->GetProjection(), m_camera->GetView(), m_world);
-    const XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_camera->GetProjection(), m_camera->GetView(), m_world);
-
-    Vector3 direction = farPoint - nearPoint;
-    direction.Normalize();
-
-    Vector3 directionToObj = objectToPaste->m_position - m_camera->GetPosition();
-    float distance = directionToObj.Length();
-
-    DisplayObject a = *objectToPaste;
-    a.m_position = -direction * distance + m_camera->GetPosition();
-    m_displayList.push_back(a);
-    objectToPaste = nullptr;
-
-    auto* action = new PasteAction<DisplayObject>(a, m_displayList.size() - 1, m_displayList);
-    m_actionController->PushNewAction(action);
 }
 
 void Game::StartPushPosition()
@@ -496,8 +501,13 @@ void Game::MoveObject()
     const XMVECTOR farSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 1.0f, 1.0f);
 
     //Unproject the points on the near and far plane
-    const XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_camera->GetProjection(), m_camera->GetView(), m_world);
-    const XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_camera->GetProjection(), m_camera->GetView(), m_world);
+    const XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right,
+        m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, 
+        m_camera->GetProjection(), m_camera->GetView(), m_world);
+
+    const XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right,
+        m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, 
+        m_camera->GetProjection(), m_camera->GetView(), m_world);
 
     Vector3 direction = farPoint - nearPoint;
     direction.Normalize();
@@ -512,6 +522,109 @@ void Game::MoveObject()
 
     m_selectedObject->m_position = camPosition + (ray.direction * t);
 
+}
+
+void Game::AdjustTerrain()
+{
+    Vector3 pointOfIntersection;
+    bool isIntersecting = false;
+
+    // setup near and far planes of frustum with mouse X and mouse y passed down from Toolmain.
+    const XMVECTOR nearSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 0.0f, 1.0f);
+    const XMVECTOR farSource = XMVectorSet(m_InputCommands.mouse_X, m_InputCommands.mouse_Y, 1.0f, 1.0f);
+
+    // Un-project the points on the near and far plane
+    const XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, 
+        m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, 
+        m_camera->GetProjection(), m_camera->GetView(), m_world);
+
+    const XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, 
+        m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth,
+        m_camera->GetProjection(), m_camera->GetView(), m_world);
+
+    Vector3 direction = farPoint - nearPoint;
+    direction.Normalize();
+    Ray ray = Ray(nearPoint, direction);
+
+    // loop through chunks to check for line of intersection
+    for (size_t i = 0; i < TERRAINRESOLUTION - 1; i++)
+    {
+        for (size_t j = 0; j < TERRAINRESOLUTION - 1; j++)
+        {
+            Vector3 vertex1 = m_displayChunk.m_terrainGeometry[i][j].position;
+            Vector3 vertex2 = m_displayChunk.m_terrainGeometry[i][j + 1].position;
+            Vector3 vertex3 = m_displayChunk.m_terrainGeometry[i + 1][j + 1].position;
+            Vector3 vertex4 = m_displayChunk.m_terrainGeometry[i + 1][j].position;
+
+            // get plane from vertices
+            Vector3 tangent = vertex2 - vertex1;
+            Vector3 bi_tangent = vertex3 - vertex1;
+            Vector3 normal = -tangent.Cross(bi_tangent);
+            normal.Normalize();
+            float d = -normal.Dot(vertex1);
+            // create the plane of intersection
+            Plane plane = Plane(normal, d);
+
+            float t;
+            if (!ray.Intersects(plane, t))
+                continue;
+
+            Vector3 point = ray.position + ray.direction * t;
+
+            // check if point is inside the quad
+            if (point.x >= std::min(vertex1.x, vertex2.x) && point.x <= std::max(vertex1.x, vertex2.x) &&
+                point.z >= std::min(vertex1.z, vertex4.z) && point.z <= std::max(vertex1.z, vertex4.z))
+            {
+                //store point of intersection
+                pointOfIntersection = point;
+                isIntersecting = true;
+                break;
+            }
+        }
+    }
+
+    // if line did not intersect with the terrain, return
+    if (!isIntersecting)
+        return;
+
+    // terrain brush definitions: outer is max radius, inner is where fall off begins
+    const int outerRadius = 25;
+    const int innerRadius = 15;
+
+    //loop through vertices and check if they are within a certain radius of the intersection point
+    for (int i = 0; i < TERRAINRESOLUTION; i++)
+    {
+        for (int j = 0; j < TERRAINRESOLUTION; j++)
+        {
+            //get distance between vertex and intersection point (ignoring y axis)
+            const float distance = Vector3::Distance(Vector3(pointOfIntersection.x, 0, pointOfIntersection.z), 
+                Vector3(m_displayChunk.m_terrainGeometry[i][j].position.x, 0, m_displayChunk.m_terrainGeometry[i][j].position.z));
+
+            if (distance < outerRadius)
+            {
+                float editDirection = m_InputCommands.editUp ? 1 : -1;
+
+                //if vertex is within radius, raise or lower it depending on direction, outer radius also factors in distance from intersection point
+                if (distance < innerRadius) 
+                {
+                    m_displayChunk.m_terrainGeometry[i][j].position.y += 0.25f * editDirection;
+                }
+                else 
+                {
+                    // smooth falloff
+                    float t = (distance - innerRadius) / (outerRadius - innerRadius);
+                    t = t * t * (3.0 - 2.0 * t);
+                    t = 1.0f - t;
+                    m_displayChunk.m_terrainGeometry[i][j].position.y += 0.25f * editDirection * t;
+                }
+            }
+        }
+    }
+}
+
+void Game::RecalculateNormals()
+{
+    m_displayChunk.CalculateTerrainNormals();
 }
 
 int Game::MousePicking()
@@ -541,8 +654,13 @@ int Game::MousePicking()
         XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
         //Unproject the points on the near and far plane, with respect to the matrix we just created.
-        XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_camera->GetView(), local);
-        XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_camera->GetView(),  local);
+        XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, 
+            m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth,
+            m_camera->GetProjection(), m_camera->GetView(), local);
+
+        XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, 
+            m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, 
+            m_camera->GetProjection(), m_camera->GetView(),  local);
 
         //turn the transformed points into our picking vector. 
         XMVECTOR pickingVector = farPoint - nearPoint;
@@ -551,7 +669,7 @@ int Game::MousePicking()
         //loop through mesh list for object
         for (int y = 0; y < m_displayList[i].m_model.get()->meshes.size(); y++)
         {
-            //checking for ray intersection
+            //checking for the ray of intersection
             if (m_displayList[i].m_model.get()->meshes[y]->boundingBox.Intersects(nearPoint, pickingVector, pickedDistance))
             {
                 if(pickedDistance < closestPickedDistance)
@@ -638,6 +756,7 @@ void Game::CreateDeviceDependentResources()
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
+    DirectX::SimpleMath::Matrix m_projection;
     auto size = m_deviceResources->GetOutputSize();
     float aspectRatio = float(size.right) / float(size.bottom);
     float fovAngleY = 70.0f * XM_PI / 180.0f;
@@ -658,6 +777,7 @@ void Game::CreateWindowSizeDependentResources()
     );
 
     m_batchEffect->SetProjection(m_projection);
+    m_camera->SetProjection(m_projection);
 	
 }
 
