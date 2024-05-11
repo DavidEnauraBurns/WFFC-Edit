@@ -1,7 +1,5 @@
 #pragma once
-#include <stack>
 #include <vector>
-
 #include "Action.h"
 
 class ActionController

@@ -386,7 +386,7 @@ void ToolMain::UpdateInput(MSG * msg)
 	m_toolInputCommands.copy = m_keyArray['C'];
 	m_toolInputCommands.undo = m_keyArray['X'];
 	m_toolInputCommands.redo = m_keyArray['Z'];
-	m_toolInputCommands.editDown = m_keyArray['J'];
-	m_toolInputCommands.editUp = m_keyArray['K'];
+	m_toolInputCommands.editDown = m_keyArray['N'];
+	m_toolInputCommands.editUp = m_keyArray['M'];
 
 }

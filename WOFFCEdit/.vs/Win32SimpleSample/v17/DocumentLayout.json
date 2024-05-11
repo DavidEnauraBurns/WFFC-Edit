@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ActionController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:ActionController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Action.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:Action.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ChunkObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:ChunkObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ToolMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:ToolMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\PasteAction.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:PasteAction.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -17,6 +33,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD0BCFE9-F760-43EB-9C31-BBFD23F397D9}|Win32SimpleSample.vcxproj|solutionrelative:Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +46,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PasteAction.h",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\PasteAction.h",
+              "RelativeDocumentMoniker": "PasteAction.h",
+              "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\PasteAction.h",
+              "RelativeToolTip": "PasteAction.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-09T16:41:15.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ToolMain.cpp",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ToolMain.cpp",
+              "RelativeDocumentMoniker": "ToolMain.cpp",
+              "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ToolMain.cpp",
+              "RelativeToolTip": "ToolMain.cpp",
+              "ViewState": "AQIAAFgBAAAAAAAAAAAAAIUBAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-09T16:24:26.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "ChunkObject.cpp",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ChunkObject.cpp",
+              "RelativeDocumentMoniker": "ChunkObject.cpp",
+              "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ChunkObject.cpp",
+              "RelativeToolTip": "ChunkObject.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-09T16:23:59.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Action.h",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Action.h",
+              "RelativeDocumentMoniker": "Action.h",
+              "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Action.h",
+              "RelativeToolTip": "Action.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-30T16:47:06.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ActionController.h",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ActionController.h",
+              "RelativeDocumentMoniker": "ActionController.h",
+              "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\ActionController.h",
+              "RelativeToolTip": "ActionController.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-30T16:46:55.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "CameraController.h",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\CameraController.h",
               "RelativeDocumentMoniker": "CameraController.h",
@@ -38,12 +123,11 @@
               "RelativeToolTip": "CameraController.h",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAACwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-29T12:55:29.054Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T12:55:29.054Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "CameraController.cpp",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\CameraController.cpp",
               "RelativeDocumentMoniker": "CameraController.cpp",
@@ -51,34 +135,31 @@
               "RelativeToolTip": "CameraController.cpp",
               "ViewState": "AQIAABUAAAAAAAAAAAAAABsAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-29T12:54:53.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T12:54:53.898Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.h",
               "RelativeDocumentMoniker": "Game.h",
               "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.h",
               "RelativeToolTip": "Game.h",
-              "ViewState": "AQIAAGYAAAAAAAAAAAAAAHMAAAATAAAA",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAAAGAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-02-29T14:47:56.286Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T14:47:56.286Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "Game.cpp",
               "DocumentMoniker": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.cpp",
               "RelativeDocumentMoniker": "Game.cpp",
               "ToolTip": "C:\\Users\\david\\Documents\\Uni Stuff - CGAD\\Year 4\\CMP405\\WFFC\\WOFFCEdit\\Game.cpp",
               "RelativeToolTip": "Game.cpp",
-              "ViewState": "AQIAAFQCAAAAAAAAAAAiwG4CAAABAAAA",
+              "ViewState": "AQIAAMkBAAAAAAAAAAAqwOcBAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-29T14:36:44.971Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T14:36:44.971Z"
             }
           ]
         }
