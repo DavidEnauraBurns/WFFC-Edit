@@ -21,4 +21,5 @@ struct InputCommands
 	bool redo;
 	bool editDown;
 	bool editUp;
+	bool deleteObject;
 };

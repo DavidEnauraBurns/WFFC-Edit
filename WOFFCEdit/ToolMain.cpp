@@ -21,6 +21,7 @@ ToolMain::ToolMain()
 	m_toolInputCommands.mouse_Y = 0;
 	m_toolInputCommands.mouse_X = 0;
 	m_toolInputCommands.mouse_LB_Down = false;
+	m_toolInputCommands.deleteObject = false;
 	
 }
 
@@ -320,6 +321,9 @@ void ToolMain::Tick(MSG *msg)
 	if (m_toolInputCommands.redo & !m_inputLastFrame.redo)
 		m_d3dRenderer.Redo();
 
+	if (m_toolInputCommands.deleteObject & !m_inputLastFrame.deleteObject)
+		m_d3dRenderer.DeleteObject(m_selectedObject);
+
 	//do we have a selection
 	//do we have a mode
 	//are we clicking / dragging /releasing
@@ -388,5 +392,6 @@ void ToolMain::UpdateInput(MSG * msg)
 	m_toolInputCommands.redo = m_keyArray['Z'];
 	m_toolInputCommands.editDown = m_keyArray['N'];
 	m_toolInputCommands.editUp = m_keyArray['M'];
+	m_toolInputCommands.deleteObject = m_keyArray['K'];
 
 }
